@@ -43,7 +43,8 @@ const HeroesAdd = () => {
 
   const onSubmit = () => {
     setForm({ ...form, powers: listPower })
-    console.log(form)
+    setListPower([])
+    setForm({})
   }
 
   return (
@@ -56,12 +57,17 @@ const HeroesAdd = () => {
         placeholder='Ingresa un nombre'
         maxLength={30}
         name='name_hero'
+        value={form.name_hero || ''}
         onChange={(e) => onHandleChange(e)}
       ></Input>
       <p>
         <strong>Clasificación:</strong>
       </p>
-      <Select name='hero_type' onChange={(e) => onHandleChange(e)}>
+      <Select
+        name='hero_type'
+        value={form.hero_type || ''}
+        onChange={(e) => onHandleChange(e)}
+      >
         <option value=''>Selecciona un tipo</option>
         <option value='heroes'>Héroe</option>
         <option value='villain'>Villano</option>
@@ -73,12 +79,17 @@ const HeroesAdd = () => {
         placeholder='Ingresa una ciudad'
         maxLength={20}
         name='city'
+        value={form.city || ''}
         onChange={(e) => onHandleChange(e)}
       ></Input>
       <p>
         <strong>Condición:</strong>
       </p>
-      <Select name='hero_condition' onChange={(e) => onHandleChange(e)}>
+      <Select
+        name='hero_condition'
+        value={form.hero_condition}
+        onChange={(e) => onHandleChange(e)}
+      >
         <option value=''>Selecciona un tipo</option>
         <option value='free'>Libertad</option>
         <option value='arrested'>Detenido</option>
@@ -168,6 +179,7 @@ const HeroesAdd = () => {
         placeholder='Marca del vehículo'
         maxLength={30}
         name='brand_car'
+        value={form.brand_car || ''}
         onChange={(e) => onHandleChange(e)}
       ></Input>
       <textarea
@@ -175,6 +187,7 @@ const HeroesAdd = () => {
         className='powerInput'
         name='description_vehicle'
         maxLength={80}
+        value={form.description_vehicle || ''}
         onChange={(e) => onHandleChange(e)}
       ></textarea>
       <button className='buttonAdd' onClick={() => onSubmit()}>
@@ -185,12 +198,12 @@ const HeroesAdd = () => {
 }
 
 const HeroesAddStyled = styled.div`
-  width: 500px;
+  width: 400px;
   box-shadow: -21px 10px 100px 3px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   border-radius: 10px;
   padding: 20px;
-  margin: 20px;
+  margin: 1rem auto;
   border: 1px solid black;
   h1,
   h3 {
