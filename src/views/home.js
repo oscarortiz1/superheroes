@@ -14,8 +14,7 @@ const HomeStyled = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  margin: 3rem auto;
+  margin: 2rem auto;
 `
 
 export default Home
