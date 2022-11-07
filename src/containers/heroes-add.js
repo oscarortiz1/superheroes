@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
 import Input from '../components/input'
 import Select from '../components/select'
@@ -7,10 +7,15 @@ const HeroesAdd = () => {
   const [form, setForm] = useState({})
   const [listPower, setListPower] = useState([])
   const [indexEdit, setIndexEdit] = useState()
+  const [formPower, setFormPower] = useState({})
 
   const onHandleChange = (e) => {
     const { name, value } = e.target
     setForm({ ...form, [name]: value })
+  }
+  const onHandleChangePower = (e) => {
+    const { name, value } = e.target
+    setFormPower({ ...formPower, [name]: value })
   }
 
   const onHandleChangeEdit = (e) => {
@@ -26,8 +31,8 @@ const HeroesAdd = () => {
   }
 
   const addPowers = () => {
-    setListPower([...listPower, form])
-    setForm({ power: '', description: '' })
+    setListPower([...listPower, formPower])
+    setFormPower({ power: '', description: '' })
   }
 
   const deletePowers = (index) => {
@@ -36,9 +41,10 @@ const HeroesAdd = () => {
     setIndexEdit()
   }
 
-  useEffect(() => {
-    console.log(indexEdit)
-  }, [indexEdit])
+  const onSubmit = () => {
+    setForm({ ...form, powers: listPower })
+    console.log(form)
+  }
 
   return (
     <HeroesAddStyled>
@@ -46,11 +52,16 @@ const HeroesAdd = () => {
       <p>
         <strong>Nombre:</strong>
       </p>
-      <Input placeholder='Ingresa un nombre' maxLength={30}></Input>
+      <Input
+        placeholder='Ingresa un nombre'
+        maxLength={30}
+        name='name_hero'
+        onChange={(e) => onHandleChange(e)}
+      ></Input>
       <p>
         <strong>Clasificación:</strong>
       </p>
-      <Select>
+      <Select name='hero_type' onChange={(e) => onHandleChange(e)}>
         <option value=''>Selecciona un tipo</option>
         <option value='heroes'>Héroe</option>
         <option value='villain'>Villano</option>
@@ -58,13 +69,18 @@ const HeroesAdd = () => {
       <p>
         <strong>Ciudad de operaciones:</strong>
       </p>
-      <Input placeholder='Ingresa una ciudad' maxLength={20}></Input>
+      <Input
+        placeholder='Ingresa una ciudad'
+        maxLength={20}
+        name='city'
+        onChange={(e) => onHandleChange(e)}
+      ></Input>
       <p>
         <strong>Condición:</strong>
       </p>
-      <Select>
+      <Select name='hero_condition' onChange={(e) => onHandleChange(e)}>
         <option value=''>Selecciona un tipo</option>
-        <option value='free '>Libertad</option>
+        <option value='free'>Libertad</option>
         <option value='arrested'>Detenido</option>
         <option value='unknown'>Desconocido</option>
       </Select>
@@ -77,16 +93,16 @@ const HeroesAdd = () => {
             className='powerInput'
             maxLength={20}
             name='power'
-            value={form.power || ''}
-            onChange={(e) => onHandleChange(e)}
+            value={formPower.power || ''}
+            onChange={(e) => onHandleChangePower(e)}
           ></Input>
           <textarea
             placeholder='Descripción del super poder'
             className='powerInput'
             name='description'
             maxLength={80}
-            value={form.description || ''}
-            onChange={(e) => onHandleChange(e)}
+            value={formPower.description || ''}
+            onChange={(e) => onHandleChangePower(e)}
           ></textarea>
           <button className='buttonAdd' onClick={() => addPowers()}>
             Agregar Poder
@@ -145,6 +161,25 @@ const HeroesAdd = () => {
           ))}
         </div>
       </div>
+      <hr />
+      <h3>Vehículo</h3>
+      <p>Si tiene un vehículo completa la siguiente información.*</p>
+      <Input
+        placeholder='Marca del vehículo'
+        maxLength={30}
+        name='brand_car'
+        onChange={(e) => onHandleChange(e)}
+      ></Input>
+      <textarea
+        placeholder='Descripción del vehículo'
+        className='powerInput'
+        name='description_vehicle'
+        maxLength={80}
+        onChange={(e) => onHandleChange(e)}
+      ></textarea>
+      <button className='buttonAdd' onClick={() => onSubmit()}>
+        Agregar Héroe
+      </button>
     </HeroesAddStyled>
   )
 }
