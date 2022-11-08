@@ -1,9 +1,11 @@
+import { addDoc, collection } from 'firebase/firestore/lite'
 import { useState } from 'react'
 import styled from 'styled-components'
 import Input from '../components/input'
 import Select from '../components/select'
+import { db } from '../firebase'
 
-const HeroesAdd = () => {
+const HeroesAdd = ({ getData }) => {
   const [form, setForm] = useState({})
   const [listPower, setListPower] = useState([])
   const [indexEdit, setIndexEdit] = useState()
@@ -41,10 +43,25 @@ const HeroesAdd = () => {
     setIndexEdit()
   }
 
-  const onSubmit = () => {
-    setForm({ ...form, powers: listPower })
-    setListPower([])
-    setForm({})
+  const onSubmit = async () => {
+    if (
+      form.name_hero &&
+      form.hero_condition &&
+      form.city &&
+      form.hero_type &&
+      listPower.length > 0
+    ) {
+      const formFinal = { ...form, powers: listPower }
+
+      const heroesRef = collection(db, 'usuarios')
+      await addDoc(heroesRef, formFinal)
+
+      setListPower([])
+      setForm({})
+      getData()
+    } else {
+      alert('Debes llenar todos los campos')
+    }
   }
 
   return (
