@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Card from '../components/card'
 
 const HeroesList = ({ listHeroes, setOpenModal, setInfo }) => {
-  const [select, setSelect] = useState('')
+  const [select, setSelect] = useState({ id: '' })
 
   const onHandleClick = (item) => {
     setInfo(item)
@@ -23,7 +23,7 @@ const HeroesList = ({ listHeroes, setOpenModal, setInfo }) => {
       </p>
       <select name='id' onChange={(e) => onChange(e)}>
         <option value=''>Seleccione una opción</option>
-        {listHeroes.map((item, index) => (
+        {listHeroes?.map((item, index) => (
           <option key={index} value={item.id}>
             {item?.name_hero} - {item?.city}
           </option>
@@ -57,9 +57,9 @@ const HeroesList = ({ listHeroes, setOpenModal, setInfo }) => {
           ?.filter((item) => item.brand_car && item.description_vehicle)
           .map((item, index) => (
             <Card key={index}>
-              <h2>Marca: {item.brand_car}</h2>
+              <h2>Marca: {item?.brand_car}</h2>
               <p>
-                <strong>Descripción</strong>: {item.description_vehicle}
+                <strong>Descripción</strong>: {item?.description_vehicle}
               </p>
             </Card>
           ))}

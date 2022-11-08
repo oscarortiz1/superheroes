@@ -86,7 +86,7 @@ const HeroesAdd = ({ getData }) => {
         onChange={(e) => onHandleChange(e)}
       >
         <option value=''>Selecciona un tipo</option>
-        <option value='heroes'>Héroe</option>
+        <option value='heroe'>Héroe</option>
         <option value='villain'>Villano</option>
       </Select>
       <p>
